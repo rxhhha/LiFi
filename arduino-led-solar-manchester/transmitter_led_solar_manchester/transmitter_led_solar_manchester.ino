@@ -1,7 +1,7 @@
 // ARDUINO LIFI TRANSMITTER
 
 #define LED_PIN 9
-#define SAMPLING_TIME 4    // ms per bit
+#define SAMPLING_TIME 2    // ms per bit
 
 String text = "";          // Default message is empty
 
@@ -34,14 +34,14 @@ void transmit_byte(char data_byte) {
     bool bitVal = (data_byte >> i) & 0x01;
     if (bitVal) {
       digitalWrite(LED_PIN, HIGH);
-      delay(SAMPLING_TIME / 2);
+      delay(SAMPLING_TIME);
       digitalWrite(LED_PIN, LOW);
-      delay(SAMPLING_TIME / 2);
+      delay(SAMPLING_TIME);
     } else {
       digitalWrite(LED_PIN, LOW);
-      delay(SAMPLING_TIME / 2);
+      delay(SAMPLING_TIME);
       digitalWrite(LED_PIN, HIGH);
-      delay(SAMPLING_TIME / 2);
+      delay(SAMPLING_TIME);
     }
   }
 

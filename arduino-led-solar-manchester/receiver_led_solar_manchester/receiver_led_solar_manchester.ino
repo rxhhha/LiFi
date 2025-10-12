@@ -1,7 +1,7 @@
 // ARDUINO LIFI RECEIVER
 
 #define LDR_PIN A3
-#define SAMPLING_TIME 4   // ms per bit
+#define SAMPLING_TIME 2   // ms per bit
 #define NUM_SAMPLES 8
 
 int threshold = 0;
@@ -43,13 +43,13 @@ bool get_ldr() {
 
 char get_byte() {
   char data_byte = 0;
-  delay(SAMPLING_TIME * 1.1);
+  delay(SAMPLING_TIME * 1);
 
   for (int i = 0; i < 8; i++) {
     bool first_half = get_ldr();
-    delay(SAMPLING_TIME / 2);
+    delay(SAMPLING_TIME);
     bool second_half = get_ldr();
-    delay(SAMPLING_TIME / 2);
+    delay(SAMPLING_TIME);
     bool bitVal;
     if (first_half == LOW && second_half == HIGH)
       bitVal = 0;
