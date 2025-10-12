@@ -1,7 +1,8 @@
-// ARDUINO LIFI RECEIVER (Serial only)
+// ARDUINO LIFI RECEIVER
 
 #define LDR_PIN A3
-#define SAMPLING_TIME 3   // ms per bit
+#define SAMPLING_TIME 4   // ms per bit
+#define THESHOLD 150
 
 bool previous_state = true;
 bool current_state = true;
@@ -15,12 +16,7 @@ void loop() {
 
   if (!current_state && previous_state) {
     char c = get_byte();
-
-    if (c == '#') {
-      Serial.println();
-    } else {
-      Serial.print(c);
-    }
+    Serial.print(c);
   }
 
   previous_state = current_state;
@@ -29,7 +25,7 @@ void loop() {
 
 bool get_ldr() {
   // Serial.println(analogRead(LDR_PIN));
-  return analogRead(LDR_PIN) > 350 ? true : false;
+  return analogRead(LDR_PIN) > THESHOLD ? true : false;
 }
 
 char get_byte() {
