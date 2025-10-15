@@ -1,12 +1,15 @@
 // ARDUINO LIFI RECEIVER
 
 #define LDR_PIN A3
-#define SAMPLING_TIME 2   // ms per bit
+#define SAMPLING_TIME 3   // ms per bit
 #define NUM_SAMPLES 8
+#define ADAPT_RATE 0.05
 
-int threshold = 0;
 bool current_state = true;
 bool previous_state = true;
+
+float threshold = 0;
+float ambient = 0;
 
 // 4B/5B Control Symbols
 #define CTRL_IDLE  0b11111  // idle
@@ -33,14 +36,14 @@ void setup() {
     sum += analogRead(LDR_PIN);
     delay(5);
   }
-  threshold = int(0.6 * (sum / NUM_SAMPLES));
-  Serial.print("Threshold: ");
+  ambient = sum / NUM_SAMPLES;
+  threshold = ambient * 0.6;
+  Serial.print("Initial threshold: ");
   Serial.println(threshold);
 }
 
 void loop() {
   current_state = get_ldr();
-
   if (!current_state && previous_state) {
     char c = get_byte();
     Serial.print(c);
@@ -50,7 +53,10 @@ void loop() {
 }
 
 bool get_ldr() {
-  return analogRead(LDR_PIN) > threshold ? true : false;
+  int ldr = analogRead(LDR_PIN);
+  ambient = (1.0 - ADAPT_RATE) * ambient + ADAPT_RATE * ldr;
+  threshold = ambient * 0.6;
+  return ldr > threshold ? true : false;
 }
 
 char get_byte() {
@@ -66,6 +72,7 @@ byte receive_5bits() {
   byte code = 0;
   for (int i = 0; i < 5; i++) {
     bool bitVal = get_ldr();
+
     code = (code << 1) | bitVal;
     delay(SAMPLING_TIME);
   }

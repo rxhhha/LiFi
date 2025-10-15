@@ -45,28 +45,31 @@ Experimental Li-Fi system using Arduino for optical wireless data transmission.
 - **Performance:** Smallest reliable sampling time: 2ms
 
 ### 3. Arduino-LED-Solar 4B/5B
-- **Setup:** Same as above
+- **Setup:** Without box
 - **Protocol:** 4B/5B encoding + NRZ  
   - 4-bit nibbles mapped to 5-bit codes (see table below)
   
-| 4B Data | 5B Code |
-|---------|---------|
-| 0000    | 11110   |
-| 0001    | 01001   |
-| 0010    | 10100   |
-| 0011    | 10101   |
-| 0100    | 01010   |
-| 0101    | 01011   |
-| 0110    | 01110   |
-| 0111    | 01111   |
-| 1000    | 10010   |
-| 1001    | 10011   |
-| 1010    | 10110   |
-| 1011    | 10111   |
-| 1100    | 11010   |
-| 1101    | 11011   |
-| 1110    | 11100   |
-| 1111    | 11101   |
+  | 4B Data | 5B Code |
+  |---------|---------|
+  | 0000    | 11110   |
+  | 0001    | 01001   |
+  | 0010    | 10100   |
+  | 0011    | 10101   |
+  | 0100    | 01010   |
+  | 0101    | 01011   |
+  | 0110    | 01110   |
+  | 0111    | 01111   |
+  | 1000    | 10010   |
+  | 1001    | 10011   |
+  | 1010    | 10110   |
+  | 1011    | 10111   |
+  | 1100    | 11010   |
+  | 1101    | 11011   |
+  | 1110    | 11100   |
+  | 1111    | 11101   |
+- **Threshold:** Use adaptive rate to adjust threshold dynamically while receiving
+  - Able to handle background light changes (e.g., turning on/off room light)
+  - Max distance depends on room light intensity
 - **Performance:** Smallest reliable sampling time: 2ms
 - **TODO:** Implement NRZI and use control signals
 

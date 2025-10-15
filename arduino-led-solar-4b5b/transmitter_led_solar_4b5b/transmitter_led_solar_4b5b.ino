@@ -1,7 +1,7 @@
 // ARDUINO LIFI TRANSMITTER
 
 #define LED_PIN 9
-#define SAMPLING_TIME 2    // ms per bit
+#define SAMPLING_TIME 3    // ms per bit
 
 // 4B/5B Control Symbols
 #define CTRL_IDLE  0b11111  // idle
